@@ -76,7 +76,7 @@ pose:
 
 ### **3.1. my_turtlebot/**
 Launches all components together:
-- Gazebo world (optional)
+- Gazebo world 
 - Map server (`nav2_map_server`)
 - AMCL localization
 - Lifecycle manager
