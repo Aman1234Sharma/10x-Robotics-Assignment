@@ -4,6 +4,23 @@ This repository contains all ROS 2 packages developed for the **Autonomous Navig
 The project implements a full navigation pipeline using ROS 2 nodes for path planning, path smoothing, trajectory generation, and control — enabling smooth and autonomous robot navigation.
 
 ---
+## ⚙️ Important Note
+
+> 🧪 **Tested Environment**
+>
+> This project has been **tested and verified** on:
+> - **ROS 2 Humble Hawksbill**
+> - **Gazebo Classic**
+> - **Ubuntu 22.04 (Jammy Jellyfish)**
+
+> ⚠️ **Prerequisites**
+>
+> Before running this repository, make sure you have the following:
+> - The `turtlebot3` and `turtlebot3_gazebo` packages installed.
+> - The directory structure for the **map** and **launch files** matches the paths defined in the code below.
+>   - If your directory paths differ, update them accordingly in your bringup.launch.py launch file.
+
+---
 
 ## **1. Repository Structure**
 
