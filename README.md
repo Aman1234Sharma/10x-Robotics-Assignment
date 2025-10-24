@@ -48,20 +48,26 @@ source install/setup.bash
 
 ---
 
-## 🚀 How to Launch the Full Pipeline
+## 🚀 How to Run the Project
 
-To launch the complete navigation stack including Gazebo, map server, planner, smoother, trajectory generator, controller, and RViz:
-
+### 1️⃣ Launch the Full Navigation Stack
+Run the following command to start Gazebo, map server, planner, smoother, trajectory generator, controller, and RViz:
 ```bash
 ros2 launch my_turtlebot bringup.launch.py
 ```
 
-Then, send a goal pose:
+### 2️⃣ Set Pose Estimate in RViz2
+Once RViz2 opens, click **“2D Pose Estimate”** and place the robot’s approximate position on the map.  
+This allows AMCL to localize the robot properly.
+
+### 3️⃣ Send a Test Goal Pose
+After setting the pose estimate, click **“2D Goal Pose”** in RViz2 to set a goal visually.  
+Alternatively, you can test via terminal with:
 ```bash
 ros2 topic pub /goal_pose geometry_msgs/PoseStamped "header:
   frame_id: 'map'
 pose:
-  position: {x: 2.0, y: 1.0, z: 0.0}
+  position: {x: 1.5, y: 0.5, z: 0.0}
   orientation: {z: 0.0, w: 1.0}" -1
 ```
 
@@ -70,7 +76,7 @@ pose:
 ## 🧩 Package Descriptions
 
 ### 🟢 **1. my_turtlebot/**
-Contains the **`bringup.launch.py`** file which launches all components together:
+Launches all components together:
 - Gazebo world (optional)
 - Map server (`nav2_map_server`)
 - AMCL localization
@@ -78,29 +84,17 @@ Contains the **`bringup.launch.py`** file which launches all components together
 - RViz visualization
 - A* planner, smoother, trajectory generator, and controller nodes
 
----
-
 ### 🔵 **2. path_planner/**
-Implements an **A\*** based global path planner (`a_star_node`) that subscribes to `/goal_pose` and `/map`.  
-It computes a safe path considering a safety margin around obstacles and publishes the path to `/a_star/path`.
-
----
+Implements an **A\*** based global planner (`a_star_node`) that plans a safe path between the robot’s position and the goal using the map.
 
 ### 🟠 **3. path_smoother/**
-Implements the **Savitzky–Golay Smoother** (`savitzky_golay_smoother`) which refines the A* path to remove jagged turns.  
-The smoothed path is published to `/smoothed_path`.
-
----
+Implements the **Savitzky–Golay Smoother** (`savitzky_golay_smoother`) that smooths the A* path to make robot motion continuous and natural.
 
 ### 🟣 **4. trajectory_generator/**
-Implements a **Time Parameterization Node** (`time_parameterizer_node`) that assigns timestamps to each pose based on a constant velocity model.  
-The output is a time-parameterized path published to `/time_trajectory`.
-
----
+Implements the **Time Parameterization Node** (`time_parameterizer_node`) which assigns timestamps to each pose using a constant velocity model.
 
 ### 🔴 **5. robot_controller/**
-Implements a **PD-based Motion Controller** (`pd_motion_planner_node`) which subscribes to the `/time_trajectory` topic and computes `/cmd_vel` commands for the robot.  
-It also publishes `/goal_reached` once the robot reaches its destination.
+Implements the **PD-based Motion Controller** (`pd_motion_planner_node`) which reads `/time_trajectory` and publishes `/cmd_vel` for robot motion.
 
 ---
 
@@ -121,8 +115,6 @@ It also publishes `/goal_reached` once the robot reaches its destination.
                      ▼
               [ Robot Motion + Goal Reached ]
 ```
-
-Each node is modular and communicates via standard ROS 2 topics, ensuring scalability and clarity of the navigation stack.
 
 ---
 
@@ -156,6 +148,6 @@ Each node is modular and communicates via standard ROS 2 topics, ensuring scalab
 
 ## 👤 Author
 
-**Sudhanshu Maurya**  
-M.Tech – Manufacturing Technology & Automation  
-IIT Delhi | FSM – Robotics Intern
+**Aman Sharma**  
+B.Tech – Mechanical Engineering  
+MNNIT Allahabad
