@@ -77,7 +77,7 @@ pose:
 This section showcases the working of the navigation pipeline and its results in both simulation and visualization environments.
 
 ### **3.1. Presenting the System in Action**
-[▶️ Watch System Demonstration](https://drive.google.com/your-demo-link)
+[Google Drive Link](https://drive.google.com/file/d/17J8mfkN-oli87akVDsjsR3337qvPXLH7/view?usp=sharing)
 
 ---
 
