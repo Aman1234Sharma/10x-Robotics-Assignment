@@ -89,7 +89,7 @@ pose:
 
 ---
 
-## **3. Demonstration Videos (3–5 Minutes)**
+## **3. Demonstration Videos **
 
 This section showcases the working of the navigation pipeline and its results in both simulation and visualization environments.
 
