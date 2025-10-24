@@ -7,17 +7,18 @@ import os
 
 
 def generate_launch_description():
-    # 1️⃣ Gazebo world (optional)
+    # 1️⃣ Gazebo world 
+    #################### Adjust these file directories as per your turtlebot3 installation directory #########################
     tb3_gazebo_pkg = get_package_share_directory('turtlebot3_gazebo')
     tb3_world_launch = os.path.join(tb3_gazebo_pkg, 'launch', 'turtlebot3_world.launch.py')
 
     gazebo_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(tb3_world_launch)
     )
-
     # 2️⃣ Map server
     tb3_nav2_pkg = get_package_share_directory('turtlebot3_navigation2')
     map_file = os.path.join(tb3_nav2_pkg, 'map', 'map.yaml')
+##############################################################################################################################
 
     map_server = Node(
         package='nav2_map_server',
