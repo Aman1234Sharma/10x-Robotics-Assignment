@@ -18,20 +18,32 @@ src/
 
 ---
 
-## ⚙️ Build Instructions
+## 🧰 How to Use This Repository
 
-> Make sure you are inside your workspace (e.g., `~/10x_ws`).
+Follow these steps to use this repository in your system:
 
+1️⃣ **Create a ROS 2 workspace**
 ```bash
-cd ~/10x_ws
-colcon build
-source install/setup.bash
+mkdir -p ~/ros2_ws/src
+cd ~/ros2_ws/src
 ```
 
-To verify:
+2️⃣ **Clone or copy this repository's contents**  
+Copy all folders from this repository (`my_turtlebot`, `path_planner`, `path_smoother`, `trajectory_generator`, `robot_controller`) into your workspace `src/` folder.
+
+3️⃣ **Go back to the workspace root**
 ```bash
-ros2 pkg list | grep planner
-ros2 pkg list | grep smoother
+cd ~/ros2_ws
+```
+
+4️⃣ **Build the workspace**
+```bash
+colcon build
+```
+
+5️⃣ **Source the setup file**
+```bash
+source install/setup.bash
 ```
 
 ---
