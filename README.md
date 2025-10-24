@@ -1,4 +1,4 @@
-# 🦾 **ROS 2 Navigation Assignment – Path Planning, Smoothing & Control**
+# **ROS 2 Navigation Assignment – Path Planning, Smoothing & Control**
 
 This repository contains all ROS 2 packages developed for the **Autonomous Navigation Assignment**.  
 The project implements a full navigation pipeline using ROS 2 nodes for path planning, path smoothing, trajectory generation, and control — enabling smooth and autonomous robot navigation.
@@ -72,9 +72,46 @@ pose:
 
 ---
 
-## **3. Package Descriptions**
+## **3. Demonstration Videos (3–5 Minutes)**
 
-### **3.1. my_turtlebot/**
+This section showcases the working of the navigation pipeline and its results in both simulation and visualization environments.
+
+### **3.1. Presenting the System in Action**
+🎥 A 3–5 minute demonstration video can include:
+- Launching the navigation system using  
+  ```bash
+  ros2 launch my_turtlebot bringup.launch.py
+  ```
+- Setting the initial robot pose in RViz2  
+- Sending a goal pose and observing path planning, smoothing, and control  
+- The robot autonomously navigating to the target location  
+- Final goal achievement confirmation in terminal and RViz2  
+
+📎 *Example placeholder (replace with your actual link):*  
+[▶️ Watch System Demonstration](https://drive.google.com/your-demo-link)
+
+---
+
+### **3.2. Showing Plots / Profiles / Results**
+📊 This part can present performance profiles or visual evidence of successful operation:
+- Velocity vs Time or Angular Velocity vs Time plots  
+- Path curvature or heading angle profiles  
+- Comparison between raw A* path and smoothed trajectory  
+- RViz screenshots of trajectory tracking and final goal pose  
+
+📎 *Example placeholder:*  
+![Smoothed vs Raw Trajectory](docs/trajectory_plot.png)  
+![Velocity Profile](docs/velocity_profile.png)
+
+---
+
+✅ These demonstrations provide clear evidence of the system’s successful end-to-end operation, from path generation to robot motion execution.
+
+---
+
+## **4. Package Descriptions**
+
+### **4.1. my_turtlebot/**
 Launches all components together:
 - Gazebo world 
 - Map server (`nav2_map_server`)
@@ -83,21 +120,21 @@ Launches all components together:
 - RViz visualization
 - A* planner, smoother, trajectory generator, and controller nodes
 
-### **3.2. path_planner/**
+### **4.2. path_planner/**
 Implements an **A\*** based global planner (`a_star_node`) that plans a safe path between the robot’s position and the goal using the map.
 
-### **3.3. path_smoother/**
+### **4.3. path_smoother/**
 Implements the **Savitzky–Golay Smoother** (`savitzky_golay_smoother`) that smooths the A* path to make robot motion continuous and natural.
 
-### **3.4. trajectory_generator/**
+### **4.4. trajectory_generator/**
 Implements the **Time Parameterization Node** (`time_parameterizer_node`) which assigns timestamps to each pose using a constant velocity model.
 
-### **3.5. robot_controller/**
+### **4.5. robot_controller/**
 Implements the **PD-based Motion Controller** (`pd_motion_planner_node`) which reads `/time_trajectory` and publishes `/cmd_vel` for robot motion.
 
 ---
 
-## **4. Data Flow Overview**
+## **5. Data Flow Overview**
 
 ```
 [ /goal_pose ] ─▶ [ A* Planner (/a_star/path) ]
@@ -117,7 +154,7 @@ Implements the **PD-based Motion Controller** (`pd_motion_planner_node`) which r
 
 ---
 
-## **5. Key Concepts Demonstrated**
+## **6. Key Concepts Demonstrated**
 
 - ROS 2 Node communication and topic remapping  
 - Global path planning using A* algorithm  
@@ -128,7 +165,7 @@ Implements the **PD-based Motion Controller** (`pd_motion_planner_node`) which r
 
 ---
 
-## **6. Results**
+## **7. Results**
 
 - A* generates collision-free global paths  
 - Path smoother refines the trajectory for smooth curvature  
@@ -137,26 +174,26 @@ Implements the **PD-based Motion Controller** (`pd_motion_planner_node`) which r
 
 ---
 
-## **7. Design Choices, Algorithms, and Architectural Decisions**
+## **8. Design Choices, Algorithms, and Architectural Decisions**
 
-### **7.1. Design Overview**
+### **8.1. Design Overview**
 The project follows a **modular ROS 2 architecture** with each core functionality implemented as an independent node.  
 This promotes scalability, debugging ease, and reusability.
 
-### **7.2. Algorithms Used**
+### **8.2. Algorithms Used**
 - **A\*** for **global path planning** to generate a raw global path to the desired goal.  
 - **Savitzky–Golay filter** for **path smoothing**, to ensure continuous and physically feasible trajectories.  
 - **Constant-velocity time parameterization** to convert spatial paths into time-aware trajectories.  
 - **PD Controller** for motion control, ensuring responsive and stable robot movement.
 
-### **7.3. Architectural Decisions**
+### **8.3. Architectural Decisions**
 - Each processing stage (planner → smoother → trajectory → controller) is modular and communicates through ROS 2 topics.  
 - Parameters such as velocity, window size, and PD gains are configurable via launch files.  
 - Real-time visualization in RViz2 enables clear understanding of robot state and trajectory.
 
 ---
 
-## **8. Extension to a Real Robot**
+## **9. Extension to a Real Robot**
 
 To adapt this project to a **physical TurtleBot or custom robot**, the following steps can be added:
 
@@ -168,41 +205,41 @@ To adapt this project to a **physical TurtleBot or custom robot**, the following
 
 ---
 
-## **9. AI Tools Used**
+## **10. AI Tools Used**
 
 - **ChatGPT** – Assisted in documentation writing, explanation of algorithms, and code generation.  
 
 ---
 
-## **10. Extending to Avoid Obstacles and Improve Navigation**
+## **11. Extending to Avoid Obstacles and Improve Navigation**
 
 The current system assumes a static environment and uses a simplified pipeline (**A\*** → Smoother → Trajectory → PD Controller).  
 To extend this project for **dynamic obstacle avoidance** and **advanced navigation**, the following improvements can be implemented:
 
-### **10.1. Integrate the Full Nav2 Stack**
+### **11.1. Integrate the Full Nav2 Stack**
 Use the complete **Navigation2 (Nav2)** architecture instead of standalone nodes.  
 Nav2 provides an ecosystem of planners, controllers, costmaps, and recovery behaviors for handling dynamic environments.
 
-### **10.2. Use Advanced Global Planners**
+### **11.2. Use Advanced Global Planners**
 Replace the simple A* node with more sophisticated planners such as:  
 - **Smac Planner (2D Hybrid-A\*)** – produces smoother, kinodynamically feasible paths.  
 - **Smac Lattice Planner** – uses motion primitives matching the robot’s kinematics.
 
-### **10.3. Adopt Advanced Controllers**
+### **11.3. Adopt Advanced Controllers**
 Replace the PD controller with modern, model-based controllers like:  
 - **MPPI (Model Predictive Path Integral)** Controller – performs sampling-based optimization for dynamic, smooth control.  
 - **TEB (Timed Elastic Band)** Controller – optimizes timing and trajectory spacing in real-time.
 
-### **10.4. Enable Dynamic Costmaps**
+### **11.4. Enable Dynamic Costmaps**
 Activate **Nav2 costmap layers** for real-time obstacle representation using sensor data (LiDAR or depth camera).  
 - **Obstacle Layer** – dynamic obstacle mapping  
 - **Inflation Layer** – maintains safe margins  
 - **Voxel Layer** – enables 3D environment awareness
 
-### **10.5. Integrate Behavior Trees**
+### **11.5. Integrate Behavior Trees**
 Implement **Nav2 Behavior Trees (BTs)** for high-level decision-making, recovery behaviors, and autonomous task management.
 
-### **10.6. Incorporate AI-Based Prediction (Optional)**
+### **11.6. Incorporate AI-Based Prediction (Optional)**
 Integrate **machine-learning models** for predictive motion planning and proactive obstacle avoidance.
 
 ---
@@ -211,7 +248,7 @@ Integrate **machine-learning models** for predictive motion planning and proacti
 
 ---
 
-## **11. References**
+## **12. References**
 
 - [ROS 2 Documentation](https://docs.ros.org/en/humble/)  
 - [TurtleBot3 Tutorials](https://emanual.robotis.com/docs/en/platform/turtlebot3/quick-start/)  
@@ -219,7 +256,7 @@ Integrate **machine-learning models** for predictive motion planning and proacti
 
 ---
 
-## **12. Author**
+## **13. Author**
 
 **Aman Sharma**  
 B.Tech – Mechanical Engineering  
