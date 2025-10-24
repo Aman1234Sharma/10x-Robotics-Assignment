@@ -81,7 +81,7 @@ This section showcases the working of the navigation pipeline and its results in
 
 ---
 
-### **3.2. Showing Plots / Profiles / Results**
+### **3.2. Smoothning on custom zig zag Path  **
 <p align="center">
   <img src="path smoothning.png" alt="Path Smoothing Result" width="600"/>
 </p>
