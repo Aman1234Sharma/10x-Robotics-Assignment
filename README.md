@@ -221,9 +221,6 @@ Activate **Nav2 costmap layers** for real-time obstacle representation using sen
 ### **11.5. Integrate Behavior Trees**
 Implement **Nav2 Behavior Trees (BTs)** for high-level decision-making, recovery behaviors, and autonomous task management.
 
-### **11.6. Incorporate AI-Based Prediction (Optional)**
-Integrate **machine-learning models** for predictive motion planning and proactive obstacle avoidance.
-
 ---
 
 ✅ By combining **Smac Lattice planning**, **MPPI control**, and **Nav2 costmap + BT integration**, this system can evolve into a **fully autonomous, real-time navigation framework** capable of safe and adaptive operation in **dynamic real-world environments**.
