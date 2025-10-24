@@ -173,20 +173,43 @@ To adapt this project to a **physical TurtleBot or custom robot**, the following
 - **ChatGPT :** Used for documentation, explanation,and code generation.
 ---
 
-### **2.5. Extending to Avoid Obstacles**
+### **2.5. Extending to Avoid Obstacles and Improve Navigation**
 
-The current system assumes a static environment (map-based).  
-To extend it for **dynamic obstacle avoidance**, the following improvements can be made:
+The current system assumes a static environment and uses a simplified pipeline (A* planner → Smoother → Trajectory → PD Controller).  
+To extend this project for **dynamic obstacle avoidance** and **advanced navigation**, the following improvements can be implemented:
 
-1️⃣ Integrate a **local planner** (e.g., DWA or TEB) that reacts to dynamic obstacles in real-time.  
-2️⃣ Add a **costmap layer** that updates obstacle positions from sensor data (LiDAR or depth camera).  
-3️⃣ Combine **A\*** for global path and **local reactive planning** for short-term avoidance.  
-4️⃣ Implement **potential field or vector field histogram (VFH)** for real-time trajectory adjustment.  
-5️⃣ Add predictive avoidance using AI models trained on sensor streams.
+1️⃣ **Integrate the Full Nav2 Stack:**  
+   Utilize the complete **Navigation2 (Nav2)** architecture instead of standalone nodes.  
+   Nav2 provides an ecosystem of planners, controllers, costmaps, and recovery behaviors that handle real-world dynamic environments seamlessly.
+
+2️⃣ **Use Advanced Global Planners:**  
+   Replace the simple A* node with sophisticated planners such as:  
+   - **Smac Planner (2D Hybrid-A\*)** – produces smoother, kinodynamically feasible paths.  
+   - **Smac Lattice Planner** – uses motion primitives that align with the robot’s kinematic constraints, ideal for differential and car-like robots.
+
+3️⃣ **Adopt Advanced Controllers:**  
+   Replace the PD controller with model-based controllers like:  
+   - **MPPI (Model Predictive Path Integral)** Controller – performs sampling-based optimization to compute smooth, dynamically-feasible velocity commands.  
+   - **TEB (Timed Elastic Band)** Controller – optimizes trajectory timing and spacing in real time.
+
+4️⃣ **Enable Dynamic Costmaps:**  
+   Activate **Nav2 costmap layers** to represent moving and newly detected obstacles using sensor data (LiDAR / depth camera).  
+   - **Obstacle Layer** for dynamic obstacle mapping  
+   - **Inflation Layer** to maintain safety margins  
+   - **Voxel Layer** for 3D awareness in complex spaces
+
+5️⃣ **Integrate Behavior Trees:**  
+   Employ **Nav2 behavior trees (BTs)** for decision-making, recovery, and task orchestration.  
+   BTs provide a modular, reactive control structure that can handle obstacle encounters, replanning, and recovery autonomously.
+
+6️⃣ **Incorporate AI-Based Prediction (Optional):**  
+   Extend the perception stack with **machine-learning models** to predict obstacle motion and assist local planners in proactively adjusting paths.
 
 ---
 
-✅ *These extensions would transform the project from a static navigation system to a fully autonomous, reactive navigation framework suitable for real-world deployment.*
+✅ By combining **Smac Lattice planning**, **MPPI control**, and **Nav2 costmap + BT integration**, the system can evolve into a **fully autonomous, real-time navigation framework** capable of safe and adaptive operation in **dynamic real-world environments**.
+
+---
 
 ## 📚 References
 
