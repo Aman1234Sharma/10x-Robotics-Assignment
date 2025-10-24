@@ -9,7 +9,7 @@ The project implements a full navigation pipeline using ROS 2 nodes for path pla
 
 ```
 src/
-├── my_turtlebot/          # Launch files, URDF, and robot bring-up
+├── my_turtlebot/          # Robot bring-up node
 ├── path_planner/          # A* global planner node
 ├── path_smoother/         # Savitzky–Golay path smoother
 ├── trajectory_generator/  # Time parameterizer node
@@ -61,8 +61,7 @@ Once RViz2 opens, click **“2D Pose Estimate”** and place the robot’s appro
 This allows AMCL to localize the robot properly.
 
 ### 3️⃣ Send a Test Goal Pose
-After setting the pose estimate, click **“2D Goal Pose”** in RViz2 to set a goal visually.  
-Alternatively, you can test via terminal with:
+After setting the pose estimate,you can give goal pose via terminal using below code(example):
 ```bash
 ros2 topic pub /goal_pose geometry_msgs/PoseStamped "header:
   frame_id: 'map'
@@ -141,8 +140,8 @@ Implements the **PD-based Motion Controller** (`pd_motion_planner_node`) which r
 ## 📚 References
 
 - [ROS 2 Documentation](https://docs.ros.org/en/humble/)  
-- [TurtleBot3 Tutorials](https://emanual.robotis.com/docs/en/platform/turtlebot3/)  
-- [Savitzky–Golay Filter](https://en.wikipedia.org/wiki/Savitzky%E2%80%93Golay_filter)
+- [TurtleBot3 Tutorials]([https://emanual.robotis.com/docs/en/platform/turtlebot3/](https://emanual.robotis.com/docs/en/platform/turtlebot3/quick-start/))  
+- [Savitzky–Golay Filter](https://github.com/ros-navigation/navigation2/blob/main/nav2_smoother/src/savitzky_golay_smoother.cpp)
 
 ---
 
