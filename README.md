@@ -77,31 +77,11 @@ pose:
 This section showcases the working of the navigation pipeline and its results in both simulation and visualization environments.
 
 ### **3.1. Presenting the System in Action**
-🎥 A 3–5 minute demonstration video can include:
-- Launching the navigation system using  
-  ```bash
-  ros2 launch my_turtlebot bringup.launch.py
-  ```
-- Setting the initial robot pose in RViz2  
-- Sending a goal pose and observing path planning, smoothing, and control  
-- The robot autonomously navigating to the target location  
-- Final goal achievement confirmation in terminal and RViz2  
-
-📎 *Example placeholder (replace with your actual link):*  
 [▶️ Watch System Demonstration](https://drive.google.com/your-demo-link)
 
 ---
 
 ### **3.2. Showing Plots / Profiles / Results**
-📊 This part can present performance profiles or visual evidence of successful operation:
-- Velocity vs Time or Angular Velocity vs Time plots  
-- Path curvature or heading angle profiles  
-- Comparison between raw A* path and smoothed trajectory  
-- RViz screenshots of trajectory tracking and final goal pose  
-
-📎 *Example placeholder:*  
-![Smoothed vs Raw Trajectory](docs/trajectory_plot.png)  
-![Velocity Profile](docs/velocity_profile.png)
 
 ---
 
