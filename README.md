@@ -248,7 +248,9 @@ Implement **Nav2 Behavior Trees (BTs)** for high-level decision-making, recovery
 
 - [ROS 2 Documentation](https://docs.ros.org/en/humble/)  
 - [TurtleBot3 Tutorials](https://emanual.robotis.com/docs/en/platform/turtlebot3/quick-start/)  
-- [Savitzky–Golay Smoother in Nav2](https://github.com/ros-navigation/navigation2/blob/main/nav2_smoother/src/savitzky_golay_smoother.cpp)
+- [Savitzky–Golay Smoother code in Nav2](https://github.com/ros-navigation/navigation2/blob/main/nav2_smoother/src/savitzky_golay_smoother.cpp)
+- [Savitzky–Golay Smoother Theory - 1](https://bartwronski.com/2021/11/03/study-of-smoothing-filters-savitzky-golay-filters/)
+- [Savitzky–Golay Smoother Theory - 2](https://medium.com/pythoneers/introduction-to-the-savitzky-golay-filter-a-comprehensive-guide-using-python-b2dd07a8e2ce)
 
 ---
 
