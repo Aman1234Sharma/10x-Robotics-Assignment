@@ -15,6 +15,7 @@ import rclpy
 from rclpy.node import Node
 from nav_msgs.msg import Path
 from geometry_msgs.msg import PoseStamped
+from std_msgs.msg import Header
 import math
 
 
@@ -42,18 +43,19 @@ class TimeParameterizer(Node):
             self.get_logger().warn("Received too few points to parameterize.")
             return
 
-        # Compute distances and assign times
+        # New trajectory container
         trajectory = Path()
         trajectory.header.frame_id = self.frame_id
         trajectory.header.stamp = self.get_clock().now().to_msg()
 
         t = 0.0
+
+        # Iterate through all poses
         for i in range(len(poses)):
             pose = PoseStamped()
-            pose.header = trajectory.header
-            pose.pose = poses[i].pose
-            trajectory.poses.append(pose)
+            pose.pose = poses[i].pose  # copy position and orientation
 
+            # Compute incremental time
             if i > 0:
                 x0, y0 = poses[i - 1].pose.position.x, poses[i - 1].pose.position.y
                 x1, y1 = poses[i].pose.position.x, poses[i].pose.position.y
@@ -61,24 +63,34 @@ class TimeParameterizer(Node):
                 dt = dist / self.v if self.v > 1e-6 else 0.0
                 t += dt
 
-            # store t in the header stamp (for visualization / debugging)
-            pose.header.stamp.sec = int(t)
-            pose.header.stamp.nanosec = int((t % 1.0) * 1e9)
+            # 🔹 Create a new independent header each time (no overwrite)
+            h = Header()
+            h.frame_id = self.frame_id
+            h.stamp.sec = math.floor(t)
+            h.stamp.nanosec = int((t - math.floor(t)) * 1e9)
+            pose.header = h
+
+            trajectory.poses.append(pose)
+            self.get_logger().debug(f"Pose {i}: t={t:.4f}s, header id={id(pose.header)}")
 
         # Publish result
         self.traj_pub.publish(trajectory)
         self.get_logger().info(
-            f"Published time-parameterized trajectory with {len(trajectory.poses)} points "
-            f"(duration ≈ {t:.2f}s)."
+            f"✅ Published time-parameterized trajectory with {len(trajectory.poses)} points "
+            f"(duration ≈ {t:.2f}s, v={self.v} m/s)."
         )
 
 
 def main(args=None):
     rclpy.init(args=args)
     node = TimeParameterizer()
-    rclpy.spin(node)
-    node.destroy_node()
-    rclpy.shutdown()
+    try:
+        rclpy.spin(node)
+    except KeyboardInterrupt:
+        node.get_logger().info("🛑 Time Parameterizer stopped by user.")
+    finally:
+        node.destroy_node()
+        rclpy.shutdown()
 
 
 if __name__ == "__main__":
